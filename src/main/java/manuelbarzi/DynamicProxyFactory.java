@@ -11,13 +11,12 @@ import java.lang.reflect.ParameterizedType;
  * 
  * @author manuelbarzi
  */
+@SuppressWarnings({ "unchecked", "serial" })
 public class DynamicProxyFactory {
-
 	/**
 	 * @param handler
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T> T newInstance(InvocationHandler<T> handler) {
 		return (T) java.lang.reflect.Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(),
 				new Class[] { (Class<T>) ((ParameterizedType) handler.getClass().getGenericSuperclass())
@@ -32,7 +31,6 @@ public class DynamicProxyFactory {
 	 *
 	 * @param <T>
 	 */
-	@SuppressWarnings("serial")
 	public static abstract class InvocationHandler<T> implements java.lang.reflect.InvocationHandler, Serializable {
 		private T target;
 
